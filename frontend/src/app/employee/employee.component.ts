@@ -3,8 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Employee } from '../models/employee.model';
+import { DataService } from '../services/data.service';
 import { EmployeeService } from '../services/employee.service';
 
 @Component({
@@ -25,7 +27,7 @@ export class EmployeeComponent implements OnInit {
     {
       columnDef: 'id',
       header: 'Id',
-      cell: (employee: Employee) => `${employee.id}`,
+      cell: (employee: Employee) => `${employee.employeeId}`,
     },
     {
       columnDef: 'name',
@@ -43,7 +45,9 @@ export class EmployeeComponent implements OnInit {
 
   subscriptions: Subscription[] = []
 
-  constructor(private dialog: MatDialog, private employeeService: EmployeeService) { }
+  employees: Array<Employee> = [];
+
+  constructor(private dialog: MatDialog, private employeeService: EmployeeService, private dataservice: DataService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllEmployees();
@@ -59,7 +63,7 @@ export class EmployeeComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.dataSource = new MatTableDataSource(res);
+          this.dataSource = new MatTableDataSource(res.employees);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort
         },
@@ -70,6 +74,10 @@ export class EmployeeComponent implements OnInit {
     this.subscriptions.push(sub);
   }
 
+  select(row: Employee){
+    this.dataservice.changeEmployee(row);
+    this.router.navigate(['/employee',  row.employeeId ]);
+  }
   editDevice(e: MouseEvent, row: any) { }
   openConfirmDelete(e: MouseEvent, row: any) { }
 

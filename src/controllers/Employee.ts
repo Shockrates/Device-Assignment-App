@@ -28,7 +28,11 @@ const readEmployee = (req: Request, res: Response, next: NextFunction) => {
 const readAllEmployee = (req: Request, res: Response, next: NextFunction) => {
     return Employee
         .find()
-        .then((employees) => (res.status(200).json({ employees })))
+        .then((employees) => (res.status(200).json({ employees})))
+        // .then((employees) => {
+        //       res.status(200).json({ employees })
+        //     console.log(employees);
+        // })
         .catch(error => res.status(500).json({ error }));
 
 }

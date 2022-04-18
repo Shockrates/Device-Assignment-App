@@ -10,13 +10,15 @@ import { EmployeeComponent } from './employee/employee.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EmployeeInfoComponent } from './employee/employee-info/employee-info.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    EmployeeInfoComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Employee } from '../models/employee.model';
+import { Employee, EmployeeApiResponse } from '../models/employee.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ export class EmployeeService {
 
 
   //API Call to fetch all Employees from backend. Response contains assign devices _id only
-  getAllEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${this.baseUrl}`);
+  getAllEmployees(): Observable<EmployeeApiResponse> {
+    return this.http.get<EmployeeApiResponse>(`${this.baseUrl}`);
   }
 
   //API Call to fetch one Employee with id from backend. Response contains assign devices details

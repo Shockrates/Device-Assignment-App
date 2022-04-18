@@ -1,13 +1,13 @@
 export class Employee {
 
-    id: any;
+    employeeId: any;
     _id: any;
     name: string;
     email: string;
 
-    constructor(name: string, email: string, id?: any, _id?: any) {
+    constructor(name: string, email: string, employeeId?: any, _id?: any) {
 
-        this.id = id;
+        this.employeeId = employeeId;
         this.name = name;
         this.email = email;
         this._id = _id
@@ -15,10 +15,14 @@ export class Employee {
 
     getEmployeeInfo() {
         return {
-            "id": this.id,
+            "id": this.employeeId,
             "name": this.name,
             "email": this.email,
         }
     }
 
+}
+
+export interface EmployeeApiResponse {
+  employees: Employee[];
 }
