@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmployeeInfoComponent } from './employee/employee-info/employee-info.component';
+import { EmployeeInputComponent } from './employee/employee-input/employee-input.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { EmployeeInfoComponent } from './employee/employee-info/employee-info.co
     AppComponent,
     HeaderComponent,
     EmployeeComponent,
-    EmployeeInfoComponent
+    EmployeeInfoComponent,
+    EmployeeInputComponent
   ],
   imports: [
     BrowserModule,

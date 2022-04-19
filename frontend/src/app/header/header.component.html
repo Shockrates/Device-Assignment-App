@@ -4,6 +4,9 @@
     </button>
     <span>My App</span>
     <span class="example-spacer"></span>
-    <button mat-stroked-button>Add Employee</button>
-    <button mat-stroked-button>Add Device</button>
+    <div class="input-buttons">
+        <button mat-stroked-button (click)="openEmployeeDialog()">Add Employee</button>
+        <button mat-stroked-button>Add Device</button>
+    </div>
+    
 </mat-toolbar>

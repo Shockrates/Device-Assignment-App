@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Employee } from '../models/employee.model';
-import { DataService } from '../services/data.service';
+import { EmployeeStoreService } from '../services/employeeStore.service';
 import { EmployeeService } from '../services/employee.service';
 
 @Component({
@@ -47,7 +47,7 @@ export class EmployeeComponent implements OnInit {
 
   employees: Array<Employee> = [];
 
-  constructor(private dialog: MatDialog, private employeeService: EmployeeService, private dataservice: DataService, private router: Router) { }
+  constructor(private dialog: MatDialog, private employeeService: EmployeeService, private employeestoreservice: EmployeeStoreService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllEmployees();
@@ -75,7 +75,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   select(row: Employee){
-    this.dataservice.changeEmployee(row);
+    this.employeestoreservice.changeEmployee(row);
     this.router.navigate(['/employee',  row.employeeId ]);
   }
   editDevice(e: MouseEvent, row: any) { }
