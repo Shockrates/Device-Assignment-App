@@ -40,7 +40,22 @@ export class EmployeeInputComponent implements OnInit {
     }
     
   addEmployee() {
-    throw new Error('Method not implemented.');
+    if(this.employeeForm.valid){
+      this.employeeService.createEmployee(this.employeeForm.value)
+      .subscribe({
+        next:(res)=> {
+         // alert("New employee added");
+          this.employeeForm.reset();
+          this.dialogRef.close('save');
+        },
+        error:(err)=>{
+          //alert(err)
+          console.log(err);
+          
+        }
+      })
+    }
+  
   }
 
      updateEmployee() {

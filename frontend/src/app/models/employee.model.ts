@@ -17,7 +17,7 @@ export class Employee {
         return {
             "id": this.employeeId,
             "name": this.name,
-            "email": this.email,
+            "email": this.email
         }
     }
 

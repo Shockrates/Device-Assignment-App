@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Employee, EmployeeApiResponse } from '../models/employee.model';
@@ -13,7 +13,15 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
 
-
+// httpOptions = {
+//     headers: new HttpHeaders({
+//       'Content-Type':  'application/json',
+//       'Access-Control-Allow-Origin': '*',
+//       'Access-Control-Allow-Methods': 'PUT, POST, GET, DELETE, OPTIONS'
+     
+//     })
+//   };
+  
   //API Call to fetch all Employees from backend. Response contains assign devices _id only
   getAllEmployees(): Observable<EmployeeApiResponse> {
     return this.http.get<EmployeeApiResponse>(`${this.baseUrl}`);
@@ -26,12 +34,12 @@ export class EmployeeService {
 
   //Creates new employee
   createEmployee(employee: Employee): Observable<Employee> {
-    return this.http.post<Employee>(`${this.baseUrl}`, employee.getEmployeeInfo());
+    return this.http.post<Employee>(`${this.baseUrl}`, employee);
   }
 
   //Updates Employee. Its used to assign Devices to Employee
   updateEmployee(employee: Employee, id: string): Observable<Employee> {
-    return this.http.put<Employee>(`${this.baseUrl}` + id, employee.getEmployeeInfo())
+    return this.http.put<Employee>(`${this.baseUrl}` + id, employee)
   }
 
   //Deletes Employee
