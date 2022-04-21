@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(EmployeeInputComponent, {
       width: '40%',
     }).afterClosed().subscribe(val=>{
-      if (val==='save'){
+      if (val==='save'){ 
         this.notifyForChange(); 
       }
     });

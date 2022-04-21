@@ -29,38 +29,22 @@ const readAllEmployee = (req: Request, res: Response, next: NextFunction) => {
     return Employee
         .find()
         .then((employees) => (res.status(200).json({ employees})))
-        // .then((employees) => {
-        //       res.status(200).json({ employees })
-        //     console.log(employees);
-        // })
         .catch(error => res.status(500).json({ error }));
 
 }
 const updateEmployee = (req: Request, res: Response, next: NextFunction) => {
+    
     const employeeId = req.params.employeeId;
-
     return Employee
-        .findById(employeeId)
-        .then((employee) => {
-            if (employee) {
-                employee.set(req.body)
-
-                return employee
-                    .save()
-                    .then(employee => res.status(201).json({ employee }))
-                    .catch(error => res.status(500).json({ error }));
-            }
-            else {
-                res.status(404).json({ message: 'not found' })
-            }
-        })
-        .catch(error => res.status(500).json({ error }));
+            .findByIdAndUpdate(employeeId, req.body, {new: true})
+            .then((employee) => (employee ? res.status(201).json({ employee }) : res.status(404).json({ message: 'not found' })))
+            .catch(error => res.status(500).json({ error }));
 }
 const deleteEmployee = (req: Request, res: Response, next: NextFunction) => {
     const employeeId = req.params.employeeId;
 
     return Employee
-        .findByIdAndUpdate(employeeId)
+        .findByIdAndDelete(employeeId)
         .then((employee) => (employee ? res.status(201).json({ message: `employee ${employee.name} deleted` }) : res.status(404).json({ message: 'not found' })))
         .catch(error => res.status(500).json({ error }))
 

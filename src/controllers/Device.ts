@@ -62,7 +62,7 @@ const deleteDevice = (req: Request, res: Response, next: NextFunction) => {
     const deviceId = req.params.deviceId;
 
     return Device
-        .findByIdAndUpdate(deviceId)
+        .findByIdAndDelete(deviceId)
         .then((device) => (device ? res.status(201).json({ message: `device ${device.serialNumber} deleted` }) : res.status(404).json({ message: 'not found' })))
         .catch(error => res.status(500).json({ error }))
 

@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs';
 import { Employee } from '../models/employee.model';
 import { EmployeeStoreService } from '../services/employeeStore.service';
 import { EmployeeService } from '../services/employee.service';
+import { DeleteConfirmationComponent } from '../shared/delete-confirmation/delete-confirmation.component';
+import { EmployeeInputComponent } from './employee-input/employee-input.component';
 
 @Component({
   selector: 'app-employee',
@@ -58,6 +60,12 @@ export class EmployeeComponent implements OnInit {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
+  notifierSubscription: Subscription = this.employeestoreservice.subjectNotifier.subscribe(notified => {
+    // originator has notified me. refresh my data here.
+    this.getAllEmployees();
+
+  });
+
   getAllEmployees() {
     var sub = this.employeeService.getAllEmployees()
       .subscribe({
@@ -76,10 +84,48 @@ export class EmployeeComponent implements OnInit {
 
   select(row: Employee){
     this.employeestoreservice.changeEmployee(row);
-    this.router.navigate(['/employee',  row.employeeId ]);
+    this.router.navigate(['/employee',  row._id ]);
   }
-  editDevice(e: MouseEvent, row: any) { }
-  openConfirmDelete(e: MouseEvent, row: any) { }
+
+  editEmployee(e: MouseEvent, row: any) {
+     e.stopImmediatePropagation();
+    var sub = this.dialog.open(EmployeeInputComponent, {
+      width: '40%',
+      data:row
+    }).afterClosed().subscribe(val=>{
+      if (val==='update'){
+        this.getAllEmployees();
+        
+      }
+    });
+    this.subscriptions.push(sub); 
+   }
+
+  openConfirmDelete(e: MouseEvent, row: Employee) { 
+    e.stopImmediatePropagation();
+    var sub = this.dialog.open(DeleteConfirmationComponent, {
+      width: '40%',
+      data:`Employee name: ${row.name}. Are you sure you want to delete?`
+    }).afterClosed().subscribe(val=>{
+      if (val==='delete'){
+        this.deleteEmployee(row._id)
+      }
+    });
+    this.subscriptions.push(sub); 
+  }
+
+  deleteEmployee(_id: string){
+    var sub = this.employeeService.deleteEmployee(_id)
+    .subscribe({
+      next:(res) => {
+        this.getAllEmployees();
+      },
+      error: (err) => {
+        alert("Error while Deleting");
+      }
+    });
+  this.subscriptions.push(sub); 
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
