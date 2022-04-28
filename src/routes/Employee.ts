@@ -10,4 +10,6 @@ router.get('/', controller.readAllEmployee);
 router.patch('/:employeeId', ValidateSchema(Schemas.employee.update), controller.updateEmployee);
 router.delete('/:employeeId', controller.deleteEmployee);
 
+router.post('/validate', controller.checkIfUsernameExists);
+
 export = router;

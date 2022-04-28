@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Employee, EmployeeApiResponse } from '../models/employee.model';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class EmployeeService {
     employeesList: Employee[] = [];
     baseUrl: String = 'http://localhost:9090/employees/';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     //API Call to fetch all Employees from backend. Response contains assign devices _id only
     getAllEmployees(): Observable<EmployeeApiResponse> {
@@ -37,7 +37,14 @@ export class EmployeeService {
         return this.http.delete<Employee>(`${this.baseUrl}` + id);
     }
 
-    getUserByUsername(name: string): Observable<Employee> {
-        return this.http.get<Employee>(`${this.baseUrl}` + name);
+    validateEmail(email: string): Observable<Boolean> {
+        return this.http.post<Boolean>(`${this.baseUrl}/validate`, email);
+    }
+
+    findAllEmployees(): Observable<Employee[]> {
+        return this.http.get<Employee[]>(`${this.baseUrl}`)
+            .pipe(
+                map(res => res)
+            );
     }
 }

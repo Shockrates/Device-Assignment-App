@@ -63,14 +63,12 @@ export class EmployeeComponent implements OnInit {
   notifierSubscription: Subscription = this.employeestoreservice.subjectNotifier.subscribe(notified => {
     // originator has notified me. refresh my data here.
     this.getAllEmployees();
-
   });
 
   getAllEmployees() {
     var sub = this.employeeService.getAllEmployees()
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.dataSource = new MatTableDataSource(res.employees);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort
@@ -82,49 +80,49 @@ export class EmployeeComponent implements OnInit {
     this.subscriptions.push(sub);
   }
 
-  select(row: Employee){
+  select(row: Employee) {
     this.employeestoreservice.changeEmployee(row);
-    this.router.navigate(['/employee',  row._id ]);
+    this.router.navigate(['/employee', row._id]);
   }
 
   editEmployee(e: MouseEvent, row: any) {
-     e.stopImmediatePropagation();
+    e.stopImmediatePropagation();
     var sub = this.dialog.open(EmployeeInputComponent, {
       width: '40%',
-      data:row
-    }).afterClosed().subscribe(val=>{
-      if (val==='update'){
+      data: row
+    }).afterClosed().subscribe(val => {
+      if (val === 'update') {
         this.getAllEmployees();
-        
+
       }
     });
-    this.subscriptions.push(sub); 
-   }
+    this.subscriptions.push(sub);
+  }
 
-  openConfirmDelete(e: MouseEvent, row: Employee) { 
+  openConfirmDelete(e: MouseEvent, row: Employee) {
     e.stopImmediatePropagation();
     var sub = this.dialog.open(DeleteConfirmationComponent, {
       width: '40%',
-      data:`Employee name: ${row.name}. Are you sure you want to delete?`
-    }).afterClosed().subscribe(val=>{
-      if (val==='delete'){
+      data: `Employee name: ${row.name}. Are you sure you want to delete?`
+    }).afterClosed().subscribe(val => {
+      if (val === 'delete') {
         this.deleteEmployee(row._id)
       }
     });
-    this.subscriptions.push(sub); 
+    this.subscriptions.push(sub);
   }
 
-  deleteEmployee(_id: string){
+  deleteEmployee(_id: string) {
     var sub = this.employeeService.deleteEmployee(_id)
-    .subscribe({
-      next:(res) => {
-        this.getAllEmployees();
-      },
-      error: (err) => {
-        alert("Error while Deleting");
-      }
-    });
-  this.subscriptions.push(sub); 
+      .subscribe({
+        next: (res) => {
+          this.getAllEmployees();
+        },
+        error: (err) => {
+          alert("Error while Deleting");
+        }
+      });
+    this.subscriptions.push(sub);
   }
 
   applyFilter(event: Event) {

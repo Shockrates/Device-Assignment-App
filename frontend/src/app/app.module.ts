@@ -13,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EmployeeInfoComponent } from './employee/employee-info/employee-info.component';
 import { EmployeeInputComponent } from './employee/employee-input/employee-input.component';
 import { DeleteConfirmationComponent } from './shared/delete-confirmation/delete-confirmation.component';
-import { CustomValidatorsDirective } from './shared/custom-validators.directive';
+
 
 
 @NgModule({
@@ -23,8 +23,7 @@ import { CustomValidatorsDirective } from './shared/custom-validators.directive'
     EmployeeComponent,
     EmployeeInfoComponent,
     EmployeeInputComponent,
-    DeleteConfirmationComponent,
-    CustomValidatorsDirective
+    DeleteConfirmationComponent
   ],
   imports: [
     BrowserModule,

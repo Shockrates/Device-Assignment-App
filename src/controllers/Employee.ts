@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { boolean } from 'joi';
 import mongoose from 'mongoose';
 import Employee from '../models/Employee';
 
@@ -28,17 +29,17 @@ const readEmployee = (req: Request, res: Response, next: NextFunction) => {
 const readAllEmployee = (req: Request, res: Response, next: NextFunction) => {
     return Employee
         .find()
-        .then((employees) => (res.status(200).json({ employees})))
+        .then((employees) => (res.status(200).json({ employees })))
         .catch(error => res.status(500).json({ error }));
 
 }
 const updateEmployee = (req: Request, res: Response, next: NextFunction) => {
-    
+
     const employeeId = req.params.employeeId;
     return Employee
-            .findByIdAndUpdate(employeeId, req.body, {new: true})
-            .then((employee) => (employee ? res.status(201).json({ employee }) : res.status(404).json({ message: 'not found' })))
-            .catch(error => res.status(500).json({ error }));
+        .findByIdAndUpdate(employeeId, req.body, { new: true })
+        .then((employee) => (employee ? res.status(201).json({ employee }) : res.status(404).json({ message: 'not found' })))
+        .catch(error => res.status(500).json({ error }));
 }
 const deleteEmployee = (req: Request, res: Response, next: NextFunction) => {
     const employeeId = req.params.employeeId;
@@ -47,7 +48,15 @@ const deleteEmployee = (req: Request, res: Response, next: NextFunction) => {
         .findByIdAndDelete(employeeId)
         .then((employee) => (employee ? res.status(201).json({ message: `employee ${employee.name} deleted` }) : res.status(404).json({ message: 'not found' })))
         .catch(error => res.status(500).json({ error }))
+}
 
+const checkIfUsernameExists = (req: Request, res: Response, next: NextFunction) => {
+
+    const { employeeId, name, email } = req.body;
+    return Employee
+        .findOne({ email: { $regex: `^${email}$`, $options: 'i' } })
+        .then((employee) => (employee ? res.status(200).json({ exists: true }) : res.status(200).json({ exists: false })))
+        .catch(error => res.status(500).json({ error }));
 
 }
 
@@ -56,5 +65,6 @@ export default {
     readEmployee,
     readAllEmployee,
     updateEmployee,
-    deleteEmployee
+    deleteEmployee,
+    checkIfUsernameExists
 };
