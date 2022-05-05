@@ -27,7 +27,7 @@ export class EmployeeService {
         return this.http.post<Employee>(`${this.baseUrl}`, employee);
     }
 
-    //Updates Employee. Its used to assign Devices to Employee
+    //Updates Employee.
     updateEmployee(employee: Employee, id: string): Observable<Employee> {
         return this.http.patch<Employee>(`${this.baseUrl}` + id, employee);
     }
@@ -41,10 +41,4 @@ export class EmployeeService {
         return this.http.post<Boolean>(`${this.baseUrl}/validate`, email);
     }
 
-    findAllEmployees(): Observable<Employee[]> {
-        return this.http.get<Employee[]>(`${this.baseUrl}`)
-            .pipe(
-                map(res => res)
-            );
-    }
 }

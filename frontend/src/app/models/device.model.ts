@@ -1,12 +1,15 @@
+import { DeviceType } from "./device-type.model";
+import { Employee } from "./employee.model";
+
 export class Device {
     serialNumber: string;
     description: string;
-    deviceType: string;
+    deviceType: DeviceType;
     status: number;
     datePurchased: Date;
-    employee: string;
+    employee: Employee | undefined;
 
-    constructor(serialNumber: string, description: string, deviceType: string, status: number, datePurchased: Date, employee?: any, _id?: any) {
+    constructor(serialNumber: string, description: string, deviceType: DeviceType, status: number, datePurchased: Date, employee?: Employee, _id?: any) {
         this.serialNumber = serialNumber;
         this.description = description;
         this.deviceType = deviceType;

@@ -1,12 +1,13 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" routerLink="/">
         <mat-icon>supervised_user_circle</mat-icon>
     </button>
+
     <span>My App</span>
+    <button mat-stroked-button routerLink="/device">Devices</button>
     <span class="example-spacer"></span>
     <div class="input-buttons">
         <button mat-stroked-button (click)="openEmployeeDialog()">Add Employee</button>
         <button mat-stroked-button>Add Device</button>
     </div>
-    
 </mat-toolbar>

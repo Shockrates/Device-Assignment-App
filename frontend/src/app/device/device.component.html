@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="employee-table">
+    <div class="device-table">
         <mat-form-field appearance="standard">
             <mat-label>Filter</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input />
@@ -21,7 +21,7 @@
                         <!-- <button mat-icon-button color="success" [routerLink]="['/device', row.id]">
                     <mat-icon>details</mat-icon>
                   </button> -->
-                        <button mat-icon-button (click)="editEmployee($event, row)" color="primary">
+                        <button mat-icon-button (click)="editDevice($event, row)" color="primary">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button (click)="openConfirmDelete($event, row)" color="warn">
@@ -39,7 +39,7 @@
                 </tr>
             </table>
 
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of devices"></mat-paginator>
         </div>
     </div>
 </div>
