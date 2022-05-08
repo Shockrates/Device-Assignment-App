@@ -8,6 +8,7 @@ export class Device {
     status: number;
     datePurchased: Date;
     employee: Employee | undefined;
+    _id?: any
 
     constructor(serialNumber: string, description: string, deviceType: DeviceType, status: number, datePurchased: Date, employee?: Employee, _id?: any) {
         this.serialNumber = serialNumber;
@@ -16,6 +17,7 @@ export class Device {
         this.status = status;
         this.datePurchased = datePurchased;
         this.employee = employee;
+        this._id = _id;
     }
 }
 

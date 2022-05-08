@@ -17,7 +17,7 @@ export class EmployeeInputComponent implements OnInit {
     employeeForm: FormGroup | any;
     actionType: string = 'Save';
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: Employee, private formBuilder: FormBuilder, private employeeService: EmployeeService, private dialogRef: MatDialogRef<EmployeeInputComponent>) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public employee: Employee, private formBuilder: FormBuilder, private employeeService: EmployeeService, private dialogRef: MatDialogRef<EmployeeInputComponent>) { }
 
     ngOnInit(): void {
         this.employeeForm = this.formBuilder.group({
@@ -28,10 +28,10 @@ export class EmployeeInputComponent implements OnInit {
                 updateOn: 'blur'
             }]
         });
-        if (this.data) {
+        if (this.employee) {
             this.actionType = 'Update';
-            this.employeeForm.controls['name'].setValue(this.data.name);
-            this.employeeForm.controls['email'].setValue(this.data.email);
+            this.employeeForm.controls['name'].setValue(this.employee.name);
+            this.employeeForm.controls['email'].setValue(this.employee.email);
         }
     }
 
@@ -40,7 +40,7 @@ export class EmployeeInputComponent implements OnInit {
     }
 
     submit() {
-        if (!this.data) {
+        if (!this.employee) {
             this.addEmployee();
         } else {
             this.updateEmployee();
@@ -50,11 +50,6 @@ export class EmployeeInputComponent implements OnInit {
     addEmployee() {
         if (this.employeeForm.valid) {
 
-            // this.employeeService.validateEmail(this.employeeForm.get('email').value).subscribe({
-            //     next: (res) => {
-            //         console.log(res.valueOf());
-            //     }
-            // })
 
             this.employeeService.createEmployee(this.employeeForm.value).subscribe({
                 next: (res) => {
@@ -72,7 +67,7 @@ export class EmployeeInputComponent implements OnInit {
 
     updateEmployee() {
         if (this.employeeForm.valid) {
-            this.employeeService.updateEmployee(this.employeeForm.value, this.data._id).subscribe({
+            this.employeeService.updateEmployee(this.employeeForm.value, this.employee._id).subscribe({
                 next: (res) => {
                     //alert("employee updated");
                     console.log(res);

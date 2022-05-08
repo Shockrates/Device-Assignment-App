@@ -6,7 +6,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Device } from '../models/device.model';
+import { DataStoreService } from '../services/data-store.service';
 import { DeviceService } from '../services/device.service';
+import { StatusList } from '../shared/status-list';
+import { DeviceInputComponent } from './device-input/device-input.component';
 
 @Component({
   selector: 'app-device',
@@ -21,6 +24,8 @@ export class DeviceComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
+
+  statusList: Array<string> = Object.keys(StatusList).filter(key => isNaN(+key));
 
   columns = [
     {
@@ -41,7 +46,7 @@ export class DeviceComponent implements OnInit {
     {
       columnDef: 'status',
       header: 'Status',
-      cell: (device: Device) => `${device.status}`,
+      cell: (device: Device) => `${this.statusList[device.status]}`,
     },
     {
       columnDef: 'datePurchased',
@@ -51,7 +56,7 @@ export class DeviceComponent implements OnInit {
     {
       columnDef: 'employeeId',
       header: 'Assign to',
-      cell: (device: Device) => `${device.employee?.name}`,
+      cell: (device: Device) => `${device.employee?.name || "Unassigned"}`,
     }
   ];
 
@@ -61,7 +66,7 @@ export class DeviceComponent implements OnInit {
 
   employees: Array<Device> = [];
 
-  constructor(private dialog: MatDialog, private deviceService: DeviceService, private router: Router) { }
+  constructor(private dialog: MatDialog, private deviceService: DeviceService, private router: Router, private dataService: DataStoreService) { }
 
   ngOnInit(): void {
     this.getAllDevices();
@@ -71,6 +76,11 @@ export class DeviceComponent implements OnInit {
     //this.notifierSubscription.unsubscribe();
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
+
+  notifierSubscription: Subscription = this.dataService.subjectNotifier.subscribe(notified => {
+    // originator has notified me. refresh my data here.
+    this.getAllDevices();
+  });
 
   getAllDevices() {
     var sub = this.deviceService.getAllDevices()
@@ -89,7 +99,19 @@ export class DeviceComponent implements OnInit {
 
   select(row: Device) { }
 
-  editDevice(e: MouseEvent, row: any) { }
+  editDevice(e: MouseEvent, row: any) {
+    e.stopImmediatePropagation();
+    var sub = this.dialog.open(DeviceInputComponent, {
+      width: '40%',
+      data: row
+    }).afterClosed().subscribe(val => {
+      if (val === 'update') {
+        this.getAllDevices();
+
+      }
+    });
+    this.subscriptions.push(sub);
+  }
 
   openConfirmDelete(e: MouseEvent, row: Device) { }
 

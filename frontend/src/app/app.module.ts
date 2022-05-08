@@ -14,6 +14,7 @@ import { EmployeeInfoComponent } from './employee/employee-info/employee-info.co
 import { EmployeeInputComponent } from './employee/employee-input/employee-input.component';
 import { DeleteConfirmationComponent } from './shared/delete-confirmation/delete-confirmation.component';
 import { DeviceComponent } from './device/device.component';
+import { DeviceInputComponent } from './device/device-input/device-input.component';
 
 
 
@@ -25,7 +26,8 @@ import { DeviceComponent } from './device/device.component';
     EmployeeInfoComponent,
     EmployeeInputComponent,
     DeleteConfirmationComponent,
-    DeviceComponent
+    DeviceComponent,
+    DeviceInputComponent
   ],
   imports: [
     BrowserModule,

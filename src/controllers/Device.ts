@@ -5,6 +5,8 @@ import Device from '../models/Device';
 const createDevice = (req: Request, res: Response, next: NextFunction) => {
     const { serialNumber, description, deviceType, status, datePurchased, employee } = req.body;
 
+    console.log(req.body);
+
     const device = new Device({
         _id: new mongoose.Types.ObjectId(),
         serialNumber, description, deviceType, status, datePurchased, employee

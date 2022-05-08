@@ -6,10 +6,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Employee } from '../models/employee.model';
-import { EmployeeStoreService } from '../services/employeeStore.service';
 import { EmployeeService } from '../services/employee.service';
 import { DeleteConfirmationComponent } from '../shared/delete-confirmation/delete-confirmation.component';
 import { EmployeeInputComponent } from './employee-input/employee-input.component';
+import { DataStoreService } from '../services/data-store.service';
 
 @Component({
   selector: 'app-employee',
@@ -49,7 +49,7 @@ export class EmployeeComponent implements OnInit {
 
   employees: Array<Employee> = [];
 
-  constructor(private dialog: MatDialog, private employeeService: EmployeeService, private employeestoreservice: EmployeeStoreService, private router: Router) { }
+  constructor(private dialog: MatDialog, private employeeService: EmployeeService, private dataService: DataStoreService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllEmployees();
@@ -60,7 +60,7 @@ export class EmployeeComponent implements OnInit {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  notifierSubscription: Subscription = this.employeestoreservice.subjectNotifier.subscribe(notified => {
+  notifierSubscription: Subscription = this.dataService.subjectNotifier.subscribe(notified => {
     // originator has notified me. refresh my data here.
     this.getAllEmployees();
   });
@@ -81,7 +81,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   select(row: Employee) {
-    this.employeestoreservice.changeEmployee(row);
+    this.dataService.changeEmployee(row);
     this.router.navigate(['/employee', row._id]);
   }
 

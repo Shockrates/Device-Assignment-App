@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Employee } from 'src/app/models/employee.model';
-import { EmployeeStoreService } from 'src/app/services/employeeStore.service';
+import { DataStoreService } from 'src/app/services/data-store.service';
 
 @Component({
   selector: 'app-employee-info',
@@ -12,24 +12,24 @@ import { EmployeeStoreService } from 'src/app/services/employeeStore.service';
 export class EmployeeInfoComponent implements OnInit {
 
   id: string = '';
-  employee!: Employee; 
+  employee!: Employee;
   subscription!: Subscription
-  
-  constructor(private router:Router, private route: ActivatedRoute, private employeestoreservice: EmployeeStoreService) { }
+
+  constructor(private router: Router, private route: ActivatedRoute, private dataService: DataStoreService) { }
 
   ngOnInit(): void {
-    this.subscription = this.employeestoreservice.employee$.subscribe({
-        next: (data) => {
-          this.employee = data;
-        },
-        error: (err) => {
-          //alert("Error while fetching");
-          console.log(err);
-          
-        }
-      });
+    this.subscription = this.dataService.employee$.subscribe({
+      next: (data) => {
+        this.employee = data;
+      },
+      error: (err) => {
+        //alert("Error while fetching");
+        console.log(err);
+
+      }
+    });
   }
-  ngOnDestroy() { 
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 }

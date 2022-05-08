@@ -13,6 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 
 
@@ -32,6 +34,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatRadioModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatSelectModule
 
 
@@ -49,6 +52,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatRadioModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatSelectModule
 
   ]

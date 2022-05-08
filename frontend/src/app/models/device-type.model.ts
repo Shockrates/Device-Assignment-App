@@ -1,12 +1,12 @@
 export class DeviceType {
 
     name: string;
+    _id?: any
 
-    constructor(name: string) {
-
+    constructor(name: string, _id?: any) {
 
         this.name = name;
-
+        this._id = _id;
     }
 
 }
