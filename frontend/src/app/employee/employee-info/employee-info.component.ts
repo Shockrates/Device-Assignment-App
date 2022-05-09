@@ -26,13 +26,14 @@ export class EmployeeInfoComponent implements OnInit {
     this.subscription = this.dataService.employee$.subscribe({
       next: (data) => {
         this.employee = data;
+        this.getUserDevices();
       },
       error: (err) => {
         //alert("Error while fetching");
         console.log(err);
       }
     });
-    this.getUserDevices();
+
 
   }
 
