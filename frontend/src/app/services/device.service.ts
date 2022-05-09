@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { EmptyError, map, Observable } from 'rxjs';
 import { Device, DeviceApiResponse } from '../models/device.model';
 
 @Injectable({
@@ -40,4 +40,5 @@ export class DeviceService {
   validateEmail(serialNumber: string): Observable<Boolean> {
     return this.http.post<Boolean>(`${this.baseUrl}/unique`, serialNumber);
   }
+
 }

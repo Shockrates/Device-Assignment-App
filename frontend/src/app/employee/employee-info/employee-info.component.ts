@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { map, Subscription } from 'rxjs';
+import { Device } from 'src/app/models/device.model';
 import { Employee } from 'src/app/models/employee.model';
 import { DataStoreService } from 'src/app/services/data-store.service';
+import { DeviceService } from 'src/app/services/device.service';
 
 @Component({
   selector: 'app-employee-info',
@@ -10,12 +12,15 @@ import { DataStoreService } from 'src/app/services/data-store.service';
   styleUrls: ['./employee-info.component.scss']
 })
 export class EmployeeInfoComponent implements OnInit {
-
   id: string = '';
   employee!: Employee;
-  subscription!: Subscription
+  devices!: Device[];
+  subscription!: Subscription;
 
-  constructor(private router: Router, private route: ActivatedRoute, private dataService: DataStoreService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private dataService: DataStoreService, private deviceService: DeviceService) {
+
+
+  }
 
   ngOnInit(): void {
     this.subscription = this.dataService.employee$.subscribe({
@@ -25,11 +30,26 @@ export class EmployeeInfoComponent implements OnInit {
       error: (err) => {
         //alert("Error while fetching");
         console.log(err);
-
       }
     });
+    this.getUserDevices();
+
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  getUserDevices() {
+    this.deviceService.getAllDevices().subscribe({
+      next: (data) => {
+        this.devices = data.devices.filter((device) => device.employee?._id == this.employee._id)
+        //this.devices = data.devices;
+        console.log(this.devices);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
 }

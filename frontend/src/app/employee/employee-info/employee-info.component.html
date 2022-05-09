@@ -4,6 +4,14 @@
         <mat-card-subtitle>{{ employee.email }}</mat-card-subtitle>
         <mat-card-content>
             <p>This is where the assigned device list will go.</p>
+            <mat-list>
+                <div mat-subheader>Devices</div>
+                <mat-list-item *ngFor="let device of devices">
+                    <div mat-line>{{ device.serialNumber }}</div>
+                    <div mat-line>{{ device.description }}</div>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+            </mat-list>
         </mat-card-content>
         <mat-card-actions>
             <button mat-button>LIKE</button>
