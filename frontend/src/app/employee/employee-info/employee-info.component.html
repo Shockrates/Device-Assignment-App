@@ -6,7 +6,7 @@
             <p>This is where the assigned device list will go.</p>
             <mat-list>
                 <div mat-subheader>Devices</div>
-                <mat-list-item *ngFor="let device of devices">
+                <mat-list-item *ngFor="let device of employee.devices_info">
                     <div mat-line>{{ device.serialNumber }}</div>
                     <div mat-line>{{ device.description }}</div>
                 </mat-list-item>
