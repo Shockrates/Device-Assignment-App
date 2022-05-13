@@ -6,11 +6,10 @@ const router = express.Router();
 
 router.post('/', ValidateSchema(Schemas.employee.create), controller.createEmployee);
 router.get('/:employeeId', controller.readEmployee);
-//router.get('/', controller.readAllEmployee);
+router.get('/', controller.readAllEmployee);
 router.patch('/:employeeId', ValidateSchema(Schemas.employee.update), controller.updateEmployee);
 router.delete('/:employeeId', controller.deleteEmployee);
 
 router.post('/validate', controller.checkIfUsernameExists);
-router.get('/', controller.readEmployeesWithDevices);
 
 export = router;
