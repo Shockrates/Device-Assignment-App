@@ -1,12 +1,12 @@
 <div class="container">
     <mat-card class="employee-card">
-        <mat-card-title>{{ employee.name }}</mat-card-title>
-        <mat-card-subtitle>{{ employee.email }}</mat-card-subtitle>
+        <mat-card-title>{{ (employee$ | async)?.name }}</mat-card-title>
+        <mat-card-subtitle>{{ (employee$ | async)?.email }}</mat-card-subtitle>
         <mat-card-content>
             <p>This is where the assigned device list will go.</p>
             <mat-list>
                 <div mat-subheader>Devices</div>
-                <mat-list-item *ngFor="let device of employee.devices_info">
+                <mat-list-item *ngFor="let device of (employee$ | async)?.devices_info">
                     <div mat-line>{{ device.serialNumber }}</div>
                     <div mat-line>{{ device.description }}</div>
                 </mat-list-item>

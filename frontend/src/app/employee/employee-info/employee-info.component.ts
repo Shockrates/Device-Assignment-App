@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Device } from 'src/app/models/device.model';
 import { Employee } from 'src/app/models/employee.model';
 import { DataStoreService } from 'src/app/services/data-store.service';
@@ -13,23 +13,34 @@ import { EmployeeService } from 'src/app/services/employee.service';
 })
 export class EmployeeInfoComponent implements OnInit {
     id: string = '';
-    employee!: Employee;
+    //employee!: Employee;
+    employee$ = new Observable<Employee>();
     devices!: Device[];
     subscription!: Subscription;
 
     constructor(private router: Router, private route: ActivatedRoute, private dataService: DataStoreService, private employeeService: EmployeeService) {}
 
     ngOnInit(): void {
-        const routeParams = this.route.snapshot.paramMap;
-        const employeeIdFromRoute = routeParams.get('id') || '';
+        // const routeParams = this.route.snapshot.paramMap;
+        // const employeeIdFromRoute = routeParams.get('id') || '';
 
-        this.subscription = this.employeeService.getEmployee(employeeIdFromRoute).subscribe({
+        // this.subscription = this.employeeService.getEmployee(employeeIdFromRoute).subscribe({
+        //     next: (data) => {
+        //         this.employee = data;
+        //         console.log(this.employee);
+        //     },
+        //     error: (err) => {
+        //         //alert("Error while fetching");
+        //         console.log(err);
+        //     }
+        // });
+        //this.employee$ = this.dataService.employee$;
+        this.subscription = this.dataService.employee$.subscribe({
             next: (data) => {
-                this.employee = data;
-                console.log(this.employee);
+                //console.log('Name ', data.name);
+                console.log(data);
             },
             error: (err) => {
-                //alert("Error while fetching");
                 console.log(err);
             }
         });

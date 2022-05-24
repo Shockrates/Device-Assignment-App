@@ -5,13 +5,13 @@ import { EmployeeInfoComponent } from './employee/employee-info/employee-info.co
 import { EmployeeComponent } from './employee/employee.component';
 
 const routes: Routes = [
-  { path: '', component: EmployeeComponent },
-  { path: 'device', component: DeviceComponent },
-  { path: 'employee/:id', component: EmployeeInfoComponent },
+    { path: '', component: EmployeeComponent },
+    { path: 'device', component: DeviceComponent },
+    { path: 'employee/:id', component: EmployeeInfoComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
