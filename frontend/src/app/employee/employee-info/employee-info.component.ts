@@ -21,8 +21,8 @@ export class EmployeeInfoComponent implements OnInit {
     constructor(private router: Router, private route: ActivatedRoute, private dataService: DataStoreService, private employeeService: EmployeeService) {}
 
     ngOnInit(): void {
-        // const routeParams = this.route.snapshot.paramMap;
-        // const employeeIdFromRoute = routeParams.get('id') || '';
+        const routeParams = this.route.snapshot.paramMap;
+        const employeeIdFromRoute = routeParams.get('id') || '';
 
         // this.subscription = this.employeeService.getEmployee(employeeIdFromRoute).subscribe({
         //     next: (data) => {
@@ -34,19 +34,10 @@ export class EmployeeInfoComponent implements OnInit {
         //         console.log(err);
         //     }
         // });
-        //this.employee$ = this.dataService.employee$;
-        this.subscription = this.dataService.employee$.subscribe({
-            next: (data) => {
-                //console.log('Name ', data.name);
-                console.log(data);
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        });
+        this.employee$ = this.employeeService.getEmployee(employeeIdFromRoute);
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        // this.subscription.unsubscribe();
     }
 }
