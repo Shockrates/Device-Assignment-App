@@ -43,7 +43,7 @@ const readDevice = (req: Request, res: Response, next: NextFunction) => {
         .populate('deviceType')
         .populate('employee')
         .select('-__v')
-        .then((device) => (device ? res.status(200).json({ device }) : res.status(404).json({ message: 'not found' })))
+        .then((device) => (device ? res.status(200).json(device) : res.status(404).json({ message: 'not found' })))
         .catch((error) => res.status(500).json({ error }));
 };
 

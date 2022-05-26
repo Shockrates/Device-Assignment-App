@@ -27,9 +27,11 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <label id="example-radio-group-label">Pick your favorite season</label>
-        <mat-radio-group formControlName="status" aria-labelledby="example-radio-group-label" class="example-radio-group">
-            <mat-radio-button class="example-radio-button" *ngFor="let status of statusList | keyvalue" [value]="status.key">
+        <label id="example-radio-group-label">Condition</label>
+        <mat-radio-group formControlName="status" aria-labelledby="example-radio-group-label"
+            class="example-radio-group">
+            <mat-radio-button class="example-radio-button" *ngFor="let status of statusList | keyvalue"
+                [value]="status.key">
                 {{ status.value }}
             </mat-radio-button>
         </mat-radio-group>
@@ -38,5 +40,6 @@
 
 <div mat-dialog-action [align]="'end'">
     <button mat-raised-button color="warn" mat-dialog-close>Close</button>
-    <button mat-raised-button color="primary" [disabled]="!deviceForm.valid" (click)="submit()">{{ actionType }}</button>
+    <button mat-raised-button color="primary" [disabled]="!deviceForm.valid" (click)="submit()">{{ actionType
+        }}</button>
 </div>

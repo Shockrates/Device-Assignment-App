@@ -96,7 +96,9 @@ export class DeviceComponent implements OnInit {
         this.subscriptions.push(sub);
     }
 
-    select(row: Device) {}
+    select(row: Device) {
+        this.router.navigate(['/device', row._id]);
+    }
 
     editDevice(e: MouseEvent, row: any) {
         e.stopImmediatePropagation();

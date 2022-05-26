@@ -79,18 +79,15 @@ export class EmployeeComponent implements OnInit {
     }
 
     select(row: Employee) {
-        var sub = this.employeeService.getEmployee(row._id).subscribe({
-            next: (data) => {
-                this.dataService.changeEmployee(data);
-                //console.log(this.dataService.employee$);
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        });
-        //this.dataService.changeEmployee(row);
+        // var sub = this.employeeService.getEmployee(row._id).subscribe({
+        //     next: (data) => {
+        //         this.dataService.changeEmployee(data);
+        //     },
+        //     error: (err) => {
+        //         console.log(err);
+        //     }
+        // });
         this.router.navigate(['/employee', row._id]);
-        //this.subscriptions.push(sub);
     }
 
     editEmployee(e: MouseEvent, row: any) {

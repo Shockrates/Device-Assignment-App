@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { Device } from 'src/app/models/device.model';
+import { AssignDeviceComponent } from 'src/app/assign/assign-device/assign-device.component';
+
 import { Employee } from 'src/app/models/employee.model';
-import { DataStoreService } from 'src/app/services/data-store.service';
+
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -13,12 +15,11 @@ import { EmployeeService } from 'src/app/services/employee.service';
 })
 export class EmployeeInfoComponent implements OnInit {
     id: string = '';
-    //employee!: Employee;
-    employee$ = new Observable<Employee>();
-    devices!: Device[];
+    employee$!: Observable<Employee>;
+    // employee!: Employee;
     subscription!: Subscription;
 
-    constructor(private router: Router, private route: ActivatedRoute, private dataService: DataStoreService, private employeeService: EmployeeService) {}
+    constructor(private router: Router, private route: ActivatedRoute, private employeeService: EmployeeService, private dialog: MatDialog) {}
 
     ngOnInit(): void {
         const routeParams = this.route.snapshot.paramMap;
@@ -27,10 +28,9 @@ export class EmployeeInfoComponent implements OnInit {
         // this.subscription = this.employeeService.getEmployee(employeeIdFromRoute).subscribe({
         //     next: (data) => {
         //         this.employee = data;
-        //         console.log(this.employee);
+        //         //console.log(this.employee);
         //     },
         //     error: (err) => {
-        //         //alert("Error while fetching");
         //         console.log(err);
         //     }
         // });
@@ -39,5 +39,18 @@ export class EmployeeInfoComponent implements OnInit {
 
     ngOnDestroy() {
         // this.subscription.unsubscribe();
+    }
+
+    openAssignDevice() {
+        this.dialog.open(AssignDeviceComponent, {
+            width: '40%'
+        });
+        //     .afterClosed()
+        //     .subscribe((val) => {
+        //         if (val === 'update') {
+        //             this.getAllDevices();
+        //         }
+        //     });
+        // this.subscriptions.push(sub);
     }
 }

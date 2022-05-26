@@ -1,0 +1,12 @@
+<div class="container">
+    <mat-card class="device-card">
+        <mat-card-title>{{ (device$ | async)?.serialNumber}}</mat-card-title>
+        <mat-card-subtitle>{{ (device$ | async)?.description }}</mat-card-subtitle>
+    </mat-card>
+
+    <h3>Assign to:</h3>
+    <p>{{ (device$ | async)?.employee?.name || "Unasigned"}}</p>
+    <mat-divider></mat-divider>
+
+    <button mat-button routerLink="/device">Back</button>
+</div>
