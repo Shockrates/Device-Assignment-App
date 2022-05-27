@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -17,7 +17,7 @@ import { DeviceInputComponent } from './device-input/device-input.component';
     templateUrl: './device.component.html',
     styleUrls: ['./device.component.scss']
 })
-export class DeviceComponent implements OnInit {
+export class DeviceComponent implements OnInit, OnDestroy {
     dataSource!: MatTableDataSource<Device>;
 
     @ViewChild(MatPaginator)
@@ -64,8 +64,6 @@ export class DeviceComponent implements OnInit {
 
     subscriptions: Subscription[] = [];
 
-    employees: Array<Device> = [];
-
     constructor(private dialog: MatDialog, private deviceService: DeviceService, private router: Router, private dataService: DataStoreService) {}
 
     ngOnInit(): void {
@@ -73,7 +71,6 @@ export class DeviceComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        //this.notifierSubscription.unsubscribe();
         this.subscriptions.forEach((subscription) => subscription.unsubscribe());
     }
 

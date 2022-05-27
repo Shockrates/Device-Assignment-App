@@ -3,9 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AssignDeviceComponent } from 'src/app/assign/assign-device/assign-device.component';
-
 import { Employee } from 'src/app/models/employee.model';
-
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -16,25 +14,14 @@ import { EmployeeService } from 'src/app/services/employee.service';
 export class EmployeeInfoComponent implements OnInit {
     id: string = '';
     employee$!: Observable<Employee>;
-    // employee!: Employee;
     subscription!: Subscription;
 
     constructor(private router: Router, private route: ActivatedRoute, private employeeService: EmployeeService, private dialog: MatDialog) {}
 
     ngOnInit(): void {
         const routeParams = this.route.snapshot.paramMap;
-        const employeeIdFromRoute = routeParams.get('id') || '';
-
-        // this.subscription = this.employeeService.getEmployee(employeeIdFromRoute).subscribe({
-        //     next: (data) => {
-        //         this.employee = data;
-        //         //console.log(this.employee);
-        //     },
-        //     error: (err) => {
-        //         console.log(err);
-        //     }
-        // });
-        this.employee$ = this.employeeService.getEmployee(employeeIdFromRoute);
+        this.id = routeParams.get('id') || '';
+        this.employee$ = this.employeeService.getEmployee(this.id);
     }
 
     ngOnDestroy() {
@@ -42,12 +29,14 @@ export class EmployeeInfoComponent implements OnInit {
     }
 
     openAssignDevice() {
-        this.dialog.open(AssignDeviceComponent, {
-            width: '40%'
+        var sub = this.dialog.open(AssignDeviceComponent, {
+            width: '40%',
+            data: this.id
         });
+
         //     .afterClosed()
         //     .subscribe((val) => {
-        //         if (val === 'update') {
+        //         if (val === 'assigned') {
         //             this.getAllDevices();
         //         }
         //     });

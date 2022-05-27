@@ -1,5 +1,5 @@
-import { DeviceType } from "./device-type.model";
-import { Employee } from "./employee.model";
+import { DeviceType } from './device-type.model';
+import { Employee } from './employee.model';
 
 export class Device {
     serialNumber: string;
@@ -8,7 +8,7 @@ export class Device {
     status: number;
     datePurchased: Date;
     employee: Employee | undefined;
-    _id?: any
+    _id?: any;
 
     constructor(serialNumber: string, description: string, deviceType: DeviceType, status: number, datePurchased: Date, employee?: Employee, _id?: any) {
         this.serialNumber = serialNumber;
@@ -23,4 +23,14 @@ export class Device {
 
 export interface DeviceApiResponse {
     devices: Device[];
+}
+
+export interface DeviceApiPayload {
+    serialNumber: string;
+    description: string;
+    deviceType: string;
+    status: number;
+    datePurchased: Date;
+    employee: string;
+    _id?: any;
 }

@@ -77,7 +77,6 @@ export class DeviceInputComponent implements OnInit {
                     this.dialogRef.close('save');
                 },
                 error: (err) => {
-                    //alert("Error while adding new device")
                     console.log(err);
                 }
             });
