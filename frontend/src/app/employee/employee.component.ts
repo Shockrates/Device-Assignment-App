@@ -48,14 +48,14 @@ export class EmployeeComponent implements OnInit {
 
     employees: Array<Employee> = [];
 
-    constructor(private dialog: MatDialog, private employeeService: EmployeeService, private dataService: DataStoreService, private router: Router) {}
+    constructor(private dialog: MatDialog, private employeeService: EmployeeService, private dataService: DataStoreService, private router: Router) { }
 
     ngOnInit(): void {
         this.getAllEmployees();
     }
 
     ngOnDestroy() {
-        //this.notifierSubscription.unsubscribe();
+        this.notifierSubscription.unsubscribe();
         this.subscriptions.forEach((subscription) => subscription.unsubscribe());
     }
 
