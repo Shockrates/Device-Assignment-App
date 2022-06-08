@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AssignDeviceComponent } from 'src/app/assign/assign-device/assign-device.component';
+import { Device } from 'src/app/models/device.model';
 import { Employee } from 'src/app/models/employee.model';
 import { EmployeeService } from 'src/app/services/employee.service';
 
@@ -29,17 +30,19 @@ export class EmployeeInfoComponent implements OnInit {
     }
 
     openAssignDevice() {
-        var sub = this.dialog.open(AssignDeviceComponent, {
-            width: '40%',
-            data: this.id
-        });
+        this.subscription = this.dialog
+            .open(AssignDeviceComponent, {
+                width: '40%',
+                data: this.id
+            })
 
-        //     .afterClosed()
-        //     .subscribe((val) => {
-        //         if (val === 'assigned') {
-        //             this.getAllDevices();
-        //         }
-        //     });
-        // this.subscriptions.push(sub);
+            .afterClosed()
+            .subscribe((val) => {
+                if (val === 'assigned') {
+                    this.employee$ = this.employeeService.getEmployee(this.id);
+                }
+            });
     }
+
+    unassignDevice(deviceId: Device) {}
 }

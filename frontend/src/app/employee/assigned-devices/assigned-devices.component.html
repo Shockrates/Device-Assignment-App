@@ -1,0 +1,12 @@
+<mat-list-item *ngFor="let device of devices">
+    <div class="mat-device">
+        <div class="mat-line-device">
+            <div mat-line>{{ device.serialNumber }}</div>
+            <div mat-line>{{ device.description }}</div>
+        </div>
+        <div class="mat-line-btn">
+            <button mat-button (click)="unassignDevice(device)">Unassign</button>
+        </div>
+    </div>
+
+</mat-list-item>

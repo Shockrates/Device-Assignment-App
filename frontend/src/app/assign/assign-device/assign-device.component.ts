@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
-import { Device, DeviceApiPayload, DeviceApiResponse } from 'src/app/models/device.model';
+import { Device, DeviceApiRequest, DeviceApiResponse } from 'src/app/models/device.model';
 import { DeviceService } from 'src/app/services/device.service';
 import { StatusList } from 'src/app/shared/status-list';
 
@@ -70,13 +70,9 @@ export class AssignDeviceComponent implements OnInit {
     }
 
     assign(row: Device) {
-        let device: DeviceApiPayload = {
-            serialNumber: row.serialNumber,
-            description: row.description,
+        const device: DeviceApiRequest = {
+            ...row,
             deviceType: row.deviceType._id,
-            status: row.status,
-            datePurchased: row.datePurchased,
-            _id: row._id,
             employee: this.employeeId
         };
         this.deviceService.updateDevice(device, row._id).subscribe({

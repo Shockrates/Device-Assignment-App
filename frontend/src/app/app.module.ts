@@ -17,6 +17,7 @@ import { DeviceComponent } from './device/device.component';
 import { DeviceInputComponent } from './device/device-input/device-input.component';
 import { DeviceInfoComponent } from './device/device-info/device-info.component';
 import { AssignDeviceComponent } from './assign/assign-device/assign-device.component';
+import { AssignedDevicesComponent } from './employee/assigned-devices/assigned-devices.component';
 
 
 
@@ -31,7 +32,8 @@ import { AssignDeviceComponent } from './assign/assign-device/assign-device.comp
     DeviceComponent,
     DeviceInputComponent,
     DeviceInfoComponent,
-    AssignDeviceComponent
+    AssignDeviceComponent,
+    AssignedDevicesComponent
   ],
   imports: [
     BrowserModule,

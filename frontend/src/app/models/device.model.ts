@@ -7,7 +7,7 @@ export class Device {
     deviceType: DeviceType;
     status: number;
     datePurchased: Date;
-    employee: Employee | undefined;
+    employee?: Employee;
     _id?: any;
 
     constructor(serialNumber: string, description: string, deviceType: DeviceType, status: number, datePurchased: Date, employee?: Employee, _id?: any) {
@@ -25,7 +25,7 @@ export interface DeviceApiResponse {
     devices: Device[];
 }
 
-export interface DeviceApiPayload {
+export interface DeviceApiRequest {
     serialNumber: string;
     description: string;
     deviceType: string;

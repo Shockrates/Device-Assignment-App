@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EmptyError, map, Observable } from 'rxjs';
-import { Device, DeviceApiPayload, DeviceApiResponse } from '../models/device.model';
+import { Device, DeviceApiRequest, DeviceApiResponse } from '../models/device.model';
 
 @Injectable({
     providedIn: 'root'
@@ -28,7 +28,7 @@ export class DeviceService {
     }
 
     //Updates Device. Its used to assign Devices to an Employee
-    updateDevice(device: DeviceApiPayload, id: string): Observable<Device> {
+    updateDevice(device: DeviceApiRequest, id: string): Observable<Device> {
         return this.http.patch<Device>(`${this.baseUrl}` + id, device);
     }
 

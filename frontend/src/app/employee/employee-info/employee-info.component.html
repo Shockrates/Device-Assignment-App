@@ -9,10 +9,19 @@
         <mat-list>
             <div mat-h3>Devices</div>
 
-            <mat-list-item *ngFor="let device of employee.devices_info">
-                <div mat-line>{{ device.serialNumber }}</div>
-                <div mat-line>{{ device.description }}</div>
-            </mat-list-item>
+            <!-- <mat-list-item *ngFor="let device of employee.devices_info">
+                <div class="mat-device">
+                    <div class="mat-line-device">
+                        <div mat-line>{{ device.serialNumber }}</div>
+                        <div mat-line>{{ device.description }}</div>
+                    </div>
+                    <div class="mat-line-btn">
+                        <button mat-button (click)="unassignDevice(device)">Unassign</button>
+                    </div>
+                </div>
+
+            </mat-list-item> -->
+            <app-assigned-devices [devices]="employee.devices_info"></app-assigned-devices>
             <mat-divider></mat-divider>
         </mat-list>
     </ng-container>
