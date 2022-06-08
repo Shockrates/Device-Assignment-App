@@ -28,7 +28,7 @@ export class DeviceInputComponent implements OnInit {
     deviceForm: FormGroup | any;
     actionType: string = 'Save';
 
-    constructor(@Inject(MAT_DIALOG_DATA) public device: Device, private formBuilder: FormBuilder, private deviceService: DeviceService, private dialogRef: MatDialogRef<DeviceInputComponent>) {}
+    constructor(@Inject(MAT_DIALOG_DATA) public device: Device, private formBuilder: FormBuilder, private deviceService: DeviceService, private dialogRef: MatDialogRef<DeviceInputComponent>) { }
 
     ngOnInit(): void {
         this.deviceForm = this.formBuilder.group({

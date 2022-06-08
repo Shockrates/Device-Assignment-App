@@ -58,11 +58,13 @@ const readAllDevice = (req: Request, res: Response, next: NextFunction) => {
 const updateDevice = (req: Request, res: Response, next: NextFunction) => {
     const deviceId = req.params.deviceId;
 
+
     return Device.findById(deviceId)
         .then((device) => {
             if (device) {
-                device.set(req.body);
 
+                device.set(req.body);
+                console.log(device);
                 return device
                     .save()
                     .then((device) => res.status(201).json({ device }))
