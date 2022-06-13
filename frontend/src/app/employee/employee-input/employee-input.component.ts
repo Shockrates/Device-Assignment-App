@@ -20,23 +20,38 @@ export class EmployeeInputComponent implements OnInit {
     constructor(@Inject(MAT_DIALOG_DATA) public employee: Employee, private formBuilder: FormBuilder, private employeeService: EmployeeService, private dialogRef: MatDialogRef<EmployeeInputComponent>) { }
 
     ngOnInit(): void {
-        this.employeeForm = this.formBuilder.group({
-            name: ['', [Validators.minLength(3), Validators.required]],
-            email: ['', {
-                validators: [Validators.required, Validators.email],
-                asyncValidators: [uniqueEmailValidator(this.employeeService)],
-                updateOn: 'blur'
-            }]
-        });
+        this.buildEmployeeForm();
         if (this.employee) {
-            this.actionType = 'Update';
-            this.employeeForm.controls['name'].setValue(this.employee.name);
-            this.employeeForm.controls['email'].setValue(this.employee.email);
+            this.setEmployeeForm(this.employee)
         }
+
+    }
+
+    get nameControls() {
+        return this.employeeForm.controls['name'];
     }
 
     get emailControls() {
         return this.employeeForm.controls['email'];
+    }
+
+    buildEmployeeForm() {
+        this.employeeForm = this.formBuilder.group({
+            name: ['', [Validators.minLength(3), Validators.required]],
+            email: ['', {
+                validators: [Validators.required, Validators.email],
+                asyncValidators: [uniqueEmailValidator(this.employeeService, this.employee?.email)],
+                updateOn: 'blur'
+            }]
+        });
+    }
+
+    setEmployeeForm(employee: Employee) {
+
+        this.actionType = 'Update';
+        this.nameControls.setValue(employee.name);
+        this.emailControls.setValue(employee.email);
+
     }
 
     submit() {

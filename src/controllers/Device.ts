@@ -62,9 +62,10 @@ const updateDevice = (req: Request, res: Response, next: NextFunction) => {
     return Device.findById(deviceId)
         .then((device) => {
             if (device) {
-
+                //console.log(req.body);
+                //device.update({ $unset: { employee: null } })
                 device.set(req.body);
-                console.log(device);
+                //console.log(device);
                 return device
                     .save()
                     .then((device) => res.status(201).json({ device }))

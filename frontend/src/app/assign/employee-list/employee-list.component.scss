@@ -1,15 +1,3 @@
-.container {
-    display: flex;
-    max-width: 400px;
-    flex-direction: column;
-    margin: 0 auto;
-}
-
-.device-card {
-    margin-top: 10px;
-    background-color: grey;
-}
-
 .mat-employee {
     width: 100%;
     display: flex;
@@ -25,4 +13,8 @@
     display: flex;
     justify-content: center;
     margin: 1rem 0;
+}
+
+.mat-dialog-action {
+    margin-top: 2rem;
 }

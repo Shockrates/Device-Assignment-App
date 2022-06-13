@@ -1,0 +1,18 @@
+<ng-container *ngIf="employees$ | async as employees">
+    <mat-list-item *ngFor="let employee of employees.employees">
+        <div class="mat-employee">
+            <div class="mat-line-employee">
+                <div mat-line>{{ employee.name }}</div>
+                <div mat-line>{{ employee.email }}</div>
+            </div>
+            <div class="mat-line-btn">
+                <button mat-button (click)="assignTo(employee._id)">Assign to user</button>
+            </div>
+        </div>
+
+    </mat-list-item>
+</ng-container>
+<mat-divider></mat-divider>
+<div mat-dialog-action [align]="'end'" class="mat-dialog-action">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+</div>

@@ -31,6 +31,6 @@ export interface DeviceApiRequest {
     deviceType: string;
     status: number;
     datePurchased: Date;
-    employee: string;
+    employee: string | null;
     _id?: any;
 }

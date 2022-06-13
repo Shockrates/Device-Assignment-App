@@ -26,13 +26,14 @@ export class EmployeeInfoComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        // this.subscription.unsubscribe();
+        this.subscription.unsubscribe();
+        this.notifierSubscription.unsubscribe();
     }
 
     openAssignDevice() {
         this.subscription = this.dialog
             .open(AssignDeviceComponent, {
-                width: '40%',
+                width: '50%',
                 data: this.id
             })
 

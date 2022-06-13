@@ -64,7 +64,7 @@ export class DeviceComponent implements OnInit, OnDestroy {
 
     subscriptions: Subscription[] = [];
 
-    constructor(private dialog: MatDialog, private deviceService: DeviceService, private router: Router, private dataService: DataStoreService) {}
+    constructor(private dialog: MatDialog, private deviceService: DeviceService, private router: Router, private dataService: DataStoreService) { }
 
     ngOnInit(): void {
         this.getAllDevices();

@@ -10,7 +10,7 @@ export class DeviceService {
     devicesList: Device[] = [];
     baseUrl: String = 'http://localhost:9090/devices/';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     //API Call to fetch all Devices from backend. Response contains assign devices _id only
     getAllDevices(): Observable<DeviceApiResponse> {

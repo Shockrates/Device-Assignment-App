@@ -1,12 +1,29 @@
 <div class="container">
-    <mat-card class="device-card">
-        <mat-card-title>{{ (device$ | async)?.serialNumber}}</mat-card-title>
-        <mat-card-subtitle>{{ (device$ | async)?.description }}</mat-card-subtitle>
-    </mat-card>
+    <ng-container *ngIf="device$ | async as device">
+        <mat-card class="device-card">
+            <mat-card-title>{{ device.serialNumber}}</mat-card-title>
+            <mat-card-subtitle>{{ device.description }}</mat-card-subtitle>
+        </mat-card>
 
-    <h3>Assign to:</h3>
-    <p>{{ (device$ | async)?.employee?.name || "Unasigned"}}</p>
-    <mat-divider></mat-divider>
 
+        <!-- <p>{{ device.employee?.name || "Unasigned"}}</p> -->
+        <div *ngIf="device.employee?.name; then employeeNameBlock else assignButtonBlock"></div>
+        <ng-template #employeeNameBlock>
+
+            <div class="mat-employee">
+                <div class="mat-line-employee">
+                    <h3>Assigned to:</h3>
+                    <p>{{device.employee?.name}}</p>
+                </div>
+                <div class="mat-line-btn">
+                    <button mat-button (click)="unassignDevice(device)">Unassign</button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #assignButtonBlock>
+            <button mat-button (click)="openEmployeeList(device)">Assign </button>
+        </ng-template>
+        <mat-divider></mat-divider>
+    </ng-container>
     <button mat-button routerLink="/device">Back</button>
 </div>

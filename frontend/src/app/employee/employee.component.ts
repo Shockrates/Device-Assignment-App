@@ -79,14 +79,6 @@ export class EmployeeComponent implements OnInit {
     }
 
     select(row: Employee) {
-        // var sub = this.employeeService.getEmployee(row._id).subscribe({
-        //     next: (data) => {
-        //         this.dataService.changeEmployee(data);
-        //     },
-        //     error: (err) => {
-        //         console.log(err);
-        //     }
-        // });
         this.router.navigate(['/employee', row._id]);
     }
 

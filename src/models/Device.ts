@@ -42,7 +42,6 @@ const DeviceSchema: Schema = new Schema(
         },
         employee: {
             type: Schema.Types.ObjectId,
-            // transform: (v: null) => v == null ? '' : v,
             ref: 'Employee'
         },
 

@@ -47,13 +47,17 @@ export class AssignDeviceComponent implements OnInit {
     displayedColumns: string[] = this.columns.map((c) => c.columnDef);
     subscriptions: Subscription[] = [];
 
-    constructor(@Inject(MAT_DIALOG_DATA) public employeeId: string, private deviceService: DeviceService, private dialogRef: MatDialogRef<AssignDeviceComponent>) {}
+    constructor(@Inject(MAT_DIALOG_DATA) public employeeId: string, private deviceService: DeviceService, private dialogRef: MatDialogRef<AssignDeviceComponent>) { }
 
     ngOnInit(): void {
-        this.populate();
+        this.getAllUnasignedDevices();
     }
 
-    populate() {
+    ngOnDestroy() {
+        this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    }
+
+    getAllUnasignedDevices() {
         var sub = this.deviceService.getUnasignedDevices().subscribe({
             next: (res) => {
                 console.log(res);
@@ -75,7 +79,7 @@ export class AssignDeviceComponent implements OnInit {
             deviceType: row.deviceType._id,
             employee: this.employeeId
         };
-        this.deviceService.updateDevice(device, row._id).subscribe({
+        var sub = this.deviceService.updateDevice(device, row._id).subscribe({
             next: (res) => {
                 this.dialogRef.close('assigned');
             },
@@ -83,6 +87,7 @@ export class AssignDeviceComponent implements OnInit {
                 console.log(err);
             }
         });
+        this.subscriptions.push(sub);
     }
 
     applyFilter(event: Event) {
