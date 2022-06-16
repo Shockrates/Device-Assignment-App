@@ -21,8 +21,8 @@
             <mat-label>Device type</mat-label>
             <mat-select formControlName="deviceType" required>
                 <mat-option> -- </mat-option>
-                <mat-option *ngFor="let device of devices" [value]="device.value">
-                    {{ device.viewValue }}
+                <mat-option *ngFor="let device of devices" [value]="device._id">
+                    {{ device.name }}
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="deviceTypeControls.errors?.required">Please chose 1</mat-error>

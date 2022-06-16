@@ -6,6 +6,7 @@ import { Device } from 'src/app/models/device.model';
 import { DeviceService } from 'src/app/services/device.service';
 import { StatusList } from 'src/app/shared/status-list';
 import { uniqueDeviceSerialValidator } from 'src/app/shared/custom-validation';
+import { DeviceType } from 'src/app/models/device-type.model';
 
 @Component({
     selector: 'app-device-input',
@@ -17,26 +18,22 @@ export class DeviceInputComponent implements OnInit {
 
     //TEMPORARY! DELETE WHEN DEVICE-TYPE FUNCTIONALITY IS ADDED
     devices: DeviceType[] = [
-        { value: '625bfc47cb180f96a912ece2', viewValue: 'Laptop' },
-        { value: '625bfc4dcb180f96a912ece5', viewValue: 'Tablet' },
-        { value: '625bfc3dcb180f96a912ecdf', viewValue: 'Smartphone' }
+        { _id: '625bfc47cb180f96a912ece2', name: 'Laptop' },
+        { _id: '625bfc4dcb180f96a912ece5', name: 'Tablet' },
+        { _id: '625bfc3dcb180f96a912ecdf', name: 'Smartphone' }
     ];
-
 
     statusList: Array<string> = Object.keys(StatusList).filter((key) => isNaN(+key));
     deviceForm: FormGroup | any;
     actionType: string = 'Save';
 
-
-    constructor(@Inject(MAT_DIALOG_DATA) public device: Device, private formBuilder: FormBuilder, private deviceService: DeviceService, private dialogRef: MatDialogRef<DeviceInputComponent>) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public device: Device, private formBuilder: FormBuilder, private deviceService: DeviceService, private dialogRef: MatDialogRef<DeviceInputComponent>) {}
 
     ngOnInit(): void {
-
         this.buildDeviceForm();
         if (this.device) {
             this.setDeviceForm(this.device);
         }
-
     }
 
     get serialNumberControls() {
@@ -72,7 +69,6 @@ export class DeviceInputComponent implements OnInit {
         });
     }
 
-
     setDeviceForm(device: Device) {
         this.actionType = 'Update';
         this.serialNumberControls.setValue(device.serialNumber);
@@ -81,7 +77,6 @@ export class DeviceInputComponent implements OnInit {
         this.statusControls.setValue(`${device.status}`);
         this.datePurchasedControls.setValue(device.datePurchased);
     }
-
 
     submit() {
         if (!this.device) {
@@ -123,21 +118,16 @@ export class DeviceInputComponent implements OnInit {
     //UNUSED case of watching serialNumber input and setting validators accordingly
     setSerialNumberValidator() {
         const serialNumberControl = this.deviceForm.get('serialNumber');
-        serialNumberControl
-            .valueChanges.pipe(distinctUntilChanged())
-            .subscribe((serialNumber: string) => {
-
-                if (serialNumber === this.device.serialNumber) {
-                    serialNumberControl.setValidators(null);
-                    serialNumberControl.updateValueAndValidity();
-                }
-            });
+        serialNumberControl.valueChanges.pipe(distinctUntilChanged()).subscribe((serialNumber: string) => {
+            if (serialNumber === this.device.serialNumber) {
+                serialNumberControl.setValidators(null);
+                serialNumberControl.updateValueAndValidity();
+            }
+        });
     }
 }
 //TEMPORARY! DELETE WHEN DEVICE-TYPE FUNCTIONALITY IS ADDED
-interface DeviceType {
-    value: string;
-    viewValue: string;
-}
-
-
+// interface DeviceType {
+//     value: string;
+//     viewValue: string;
+// }
