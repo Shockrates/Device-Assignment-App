@@ -1,24 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DeviceTypeComponent } from '../deviceType/device-type/device-type.component';
-import { DeviceType } from '../models/device-type.model';
+import { DeviceType, DeviceTypeApiResponse } from '../models/device-type.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DeviceTypeService {
-    deviceTypeList: DeviceTypeComponent[] = [];
+    deviceTypeList: DeviceType[] = [];
     baseUrl: String = 'http://localhost:9090/devicetypes/';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     //API Call to fetch all DeviceTpes from backend. Response contains assign devices _id only
-    getAllDeviceTypes(): Observable<DeviceType[]> {
-        return this.http.get<DeviceType[]>(`${this.baseUrl}`);
+    getAllDeviceTypes(): Observable<DeviceTypeApiResponse> {
+        return this.http.get<DeviceTypeApiResponse>(`${this.baseUrl}`);
     }
 
-    //API Call to fetch one DeviceType with id from backend.
+    //API Call to fetch one DeviceType ApiResponseth id from backend.
     getDeviceType(id: string): Observable<DeviceType> {
         return this.http.get<DeviceType>(`${this.baseUrl}` + id);
     }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DeviceType } from 'src/app/models/device-type.model';
+import { DeviceTypeApiResponse } from 'src/app/models/device-type.model';
 import { DeviceTypeService } from 'src/app/services/device-type.service';
 
 @Component({
@@ -9,9 +9,9 @@ import { DeviceTypeService } from 'src/app/services/device-type.service';
     styleUrls: ['./device-type.component.scss']
 })
 export class DeviceTypeComponent implements OnInit {
-    deviceTypes$!: Observable<DeviceType[]>;
+    deviceTypes$!: Observable<DeviceTypeApiResponse>;
 
-    constructor(private deviceTypeService: DeviceTypeService) {}
+    constructor(private deviceTypeService: DeviceTypeService) { }
 
     ngOnInit(): void {
         this.getAllDeviceTypes();

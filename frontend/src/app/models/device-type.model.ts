@@ -10,3 +10,7 @@ export class DeviceType {
     }
 
 }
+
+export interface DeviceTypeApiResponse {
+    deviceTypes: DeviceType[];
+}
