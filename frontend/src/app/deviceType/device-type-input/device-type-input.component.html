@@ -1,0 +1,7 @@
+<mat-form-field class="deviceType-form-field" appearance="fill">
+    <mat-label>Device Type</mat-label>
+    <input matInput type="text" [(ngModel)]="value" placeholder="Plase enter new device type">
+    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-form-field>

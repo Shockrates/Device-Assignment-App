@@ -20,6 +20,7 @@ import { AssignDeviceComponent } from './assign/assign-device/assign-device.comp
 import { AssignedDevicesComponent } from './employee/assigned-devices/assigned-devices.component';
 import { EmployeeListComponent } from './assign/employee-list/employee-list.component';
 import { DeviceTypeComponent } from './deviceType/device-type/device-type.component';
+import { DeviceTypeInputComponent } from './deviceType/device-type-input/device-type-input.component';
 
 
 
@@ -37,7 +38,8 @@ import { DeviceTypeComponent } from './deviceType/device-type/device-type.compon
     AssignDeviceComponent,
     AssignedDevicesComponent,
     EmployeeListComponent,
-    DeviceTypeComponent
+    DeviceTypeComponent,
+    DeviceTypeInputComponent
   ],
   imports: [
     BrowserModule,

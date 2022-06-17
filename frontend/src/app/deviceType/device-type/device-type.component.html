@@ -1,5 +1,6 @@
 <ng-container *ngIf="deviceTypes$ | async as deviceTypes">
     <div class="container">
+        <app-device-type-input></app-device-type-input>
         <mat-list-item *ngFor="let deviceType of deviceTypes.deviceTypes">
             <div class="mat-deviceType">
                 <div mat-line>{{ deviceType.name }}</div>
