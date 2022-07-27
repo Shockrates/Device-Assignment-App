@@ -17,7 +17,7 @@ export class EmployeeInfoComponent implements OnInit {
     employee$!: Observable<Employee>;
     subscription!: Subscription;
 
-    constructor(private router: Router, private route: ActivatedRoute, private employeeService: EmployeeService, private dataService: DataStoreService, private dialog: MatDialog) { }
+    constructor(private router: Router, private route: ActivatedRoute, private employeeService: EmployeeService, private dataService: DataStoreService, private dialog: MatDialog) {}
 
     ngOnInit(): void {
         const routeParams = this.route.snapshot.paramMap;
@@ -26,7 +26,9 @@ export class EmployeeInfoComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        if (typeof this.subscription != 'undefined') {
+            this.subscription.unsubscribe();
+        }
         this.notifierSubscription.unsubscribe();
     }
 
@@ -53,5 +55,4 @@ export class EmployeeInfoComponent implements OnInit {
     getEmployee(id: string) {
         this.employee$ = this.employeeService.getEmployee(id);
     }
-
 }

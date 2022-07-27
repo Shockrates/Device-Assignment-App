@@ -16,12 +16,18 @@ export class DeviceInfoComponent implements OnInit {
     device$!: Observable<Device>;
     subscription!: Subscription;
 
-    constructor(private router: Router, private route: ActivatedRoute, private deviceService: DeviceService, private dialog: MatDialog) { }
+    constructor(private router: Router, private route: ActivatedRoute, private deviceService: DeviceService, private dialog: MatDialog) {}
 
     ngOnInit(): void {
         const routeParams = this.route.snapshot.paramMap;
         this.id = routeParams.get('id') || '';
         this.getDevice(this.id);
+    }
+
+    ngOnDestroy() {
+        if (typeof this.subscription != 'undefined') {
+            this.subscription.unsubscribe();
+        }
     }
 
     getDevice(id: string) {
@@ -57,6 +63,4 @@ export class DeviceInfoComponent implements OnInit {
                 }
             });
     }
-
-
 }
