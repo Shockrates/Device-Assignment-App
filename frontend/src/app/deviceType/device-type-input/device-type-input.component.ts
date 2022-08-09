@@ -11,4 +11,6 @@ export class DeviceTypeInputComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {}
+
+    submit() {}
 }
