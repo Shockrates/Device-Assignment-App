@@ -1,3 +1,6 @@
+h1 {
+    margin: 0;
+}
 .container {
     display: flex;
     max-width: 400px;
@@ -7,5 +10,8 @@
 
 .employee-card {
     margin-top: 10px;
-    background-color: grey;
+    color: white;
+    background-color: #3f51b5;
+    padding: 10px 5px;
+    border-radius: 10px;
 }

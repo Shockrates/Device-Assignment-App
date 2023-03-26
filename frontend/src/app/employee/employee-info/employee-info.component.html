@@ -1,13 +1,12 @@
 <div class="container">
     <ng-container *ngIf="employee$ | async as employee">
-        <mat-card class="employee-card">
+        <div class="employee-card">
 
-            <mat-card-title>{{ employee.name }}</mat-card-title>
-            <mat-card-subtitle>{{ employee.email }}</mat-card-subtitle>
+            <h1>{{ employee.name }}</h1>
 
-        </mat-card>
+        </div>
         <mat-list>
-            <div mat-h3>Devices</div>
+            <div mat-h3>Assigned devices:</div>
             <app-assigned-devices [devices]="employee.devices_info"></app-assigned-devices>
             <mat-divider></mat-divider>
         </mat-list>

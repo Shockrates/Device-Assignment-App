@@ -1,9 +1,10 @@
 <div class="container">
     <ng-container *ngIf="device$ | async as device">
-        <mat-card class="device-card">
-            <mat-card-title>{{ device.serialNumber}}</mat-card-title>
-            <mat-card-subtitle>{{ device.description }}</mat-card-subtitle>
-        </mat-card>
+        <div class="device-card">
+            <h1>{{ device.description }}</h1>
+            <p>serial: {{ device.serialNumber}}</p>
+
+        </div>
 
 
         <!-- <p>{{ device.employee?.name || "Unasigned"}}</p> -->

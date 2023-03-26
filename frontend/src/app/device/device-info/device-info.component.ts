@@ -24,6 +24,13 @@ export class DeviceInfoComponent implements OnInit {
         this.getDevice(this.id);
     }
 
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+        //this.notifierSubscription.unsubscribe();
+    }
+
     getDevice(id: string) {
         this.device$ = this.deviceService.getDevice(id);
     }
