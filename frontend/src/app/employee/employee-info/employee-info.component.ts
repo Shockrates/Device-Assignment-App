@@ -26,7 +26,7 @@ export class EmployeeInfoComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        if (this.subscription) {
+        if (typeof this.subscription != 'undefined') {
             this.subscription.unsubscribe();
         }
         this.notifierSubscription.unsubscribe();
@@ -55,5 +55,4 @@ export class EmployeeInfoComponent implements OnInit {
     getEmployee(id: string) {
         this.employee$ = this.employeeService.getEmployee(id);
     }
-
 }

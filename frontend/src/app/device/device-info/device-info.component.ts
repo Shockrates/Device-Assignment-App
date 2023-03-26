@@ -25,10 +25,9 @@ export class DeviceInfoComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        if (this.subscription) {
+        if (typeof this.subscription != 'undefined') {
             this.subscription.unsubscribe();
         }
-        //this.notifierSubscription.unsubscribe();
     }
 
     getDevice(id: string) {
@@ -64,6 +63,4 @@ export class DeviceInfoComponent implements OnInit {
                 }
             });
     }
-
-
 }

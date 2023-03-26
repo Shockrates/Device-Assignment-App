@@ -7,6 +7,7 @@ import { DeviceService } from 'src/app/services/device.service';
 import { StatusList } from 'src/app/shared/status-list';
 import { uniqueDeviceSerialValidator } from 'src/app/shared/custom-validation';
 import { DeviceType } from 'src/app/models/device-type.model';
+import { DeviceTypeService } from 'src/app/services/device-type.service';
 
 @Component({
     selector: 'app-device-input',
@@ -17,19 +18,26 @@ export class DeviceInputComponent implements OnInit {
     private subscription!: Subscription;
 
     //TEMPORARY! DELETE WHEN DEVICE-TYPE FUNCTIONALITY IS ADDED
-    devices: DeviceType[] = [
-        { _id: '625bfc47cb180f96a912ece2', name: 'Laptop' },
-        { _id: '625bfc4dcb180f96a912ece5', name: 'Tablet' },
-        { _id: '625bfc3dcb180f96a912ecdf', name: 'Smartphone' }
+    deviceTypes: DeviceType[] = [
+        // { _id: '625bfc47cb180f96a912ece2', name: 'Laptop' },
+        // { _id: '625bfc4dcb180f96a912ece5', name: 'Tablet' },
+        // { _id: '625bfc3dcb180f96a912ecdf', name: 'Smartphone' }
     ];
 
     statusList: Array<string> = Object.keys(StatusList).filter((key) => isNaN(+key));
     deviceForm: FormGroup | any;
     actionType: string = 'Save';
 
-    constructor(@Inject(MAT_DIALOG_DATA) public device: Device, private formBuilder: FormBuilder, private deviceService: DeviceService, private dialogRef: MatDialogRef<DeviceInputComponent>) {}
+    constructor(
+        @Inject(MAT_DIALOG_DATA) public device: Device,
+        private formBuilder: FormBuilder,
+        private deviceService: DeviceService,
+        private deviceTypeService: DeviceTypeService,
+        private dialogRef: MatDialogRef<DeviceInputComponent>
+    ) {}
 
     ngOnInit(): void {
+        this.setDeviceTypes();
         this.buildDeviceForm();
         if (this.device) {
             this.setDeviceForm(this.device);
@@ -76,6 +84,17 @@ export class DeviceInputComponent implements OnInit {
         this.deviceTypeControls.setValue(device.deviceType._id);
         this.statusControls.setValue(`${device.status}`);
         this.datePurchasedControls.setValue(device.datePurchased);
+    }
+
+    setDeviceTypes() {
+        var sub = this.deviceTypeService.getAllDeviceTypes().subscribe({
+            next: (res) => {
+                this.deviceTypes = res.deviceTypes;
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
     }
 
     submit() {

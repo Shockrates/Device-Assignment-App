@@ -1,0 +1,20 @@
+<div>
+    <form [formGroup]="deviceTypeForm" class="deviceType-form-inline">
+        <mat-form-field class="deviceType-form-field" appearance="fill">
+            <mat-label>Device Type</mat-label>
+            <input matInput type="text" formControlName="name" placeholder="Plase enter new device type">
+            <mat-error *ngIf="deviceTypeNameControls.errors?.nameExists">This name is already been used
+            </mat-error>
+            <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+
+        </mat-form-field>
+        <button mat-raised-button matSuffix color="primary" [disabled]="!deviceTypeForm.valid"
+            (click)="addDeviceType()">Add
+            Device
+            Type</button>
+    </form>
+
+
+</div>

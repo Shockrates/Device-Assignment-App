@@ -1,0 +1,16 @@
+.deviceType-form-inline {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.deviceType-form-field {
+    margin-top: 1rem;
+    width: 80%;
+    //vertical-align: middle;
+}
+
+.deviceType-form-inline button {
+    margin-left: 1.5rem;
+    padding: 5px 20px;
+}
